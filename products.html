@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosey Shop | Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="nav">
+        <div class="logo">
+            <img src="549ce871-ba3d-4455-ae79-cc1313740618.png" alt="Logo">
+            <span class="site-name">Flower Shop</span>
+        </div>
+        <ul class="ul">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#promotions">Promotions</a></li>
+            <li><a href="products.html" class="active">Products</a></li>
+<li><a href="#" id="buy-now-btn">Buy Now</a></li>
+        </ul>
+       <div class="cart">
+  <i class="fa-solid fa-cart-shopping"></i>
+  <span id="cart-count" style="background:#db5275;color:#fff;font-size:14px;border-radius:50%;padding:2px 8px;margin-left:6px;">0</span>
+</div>
+    </div>
+
+    <div class="products-section">
+        <h1 class="products-title"><i class="fa-solid fa-seedling" style="color:#db5275;margin-right:10px;"></i>Our Products</h1>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="download (30).jpeg" alt="Pink Rose">
+                <h2>Pink Rose</h2>
+                <p>Grace & admiration</p>
+                <span class="price">$15</span>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="download (31).jpeg" alt="White Lily">
+                <h2>White Lily</h2>
+                <p>Elegance & purity</p>
+                <span class="price">$18</span>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="download (32).jpeg" alt="Red Tulip">
+                <h2>Red Tulip</h2>
+                <p>Passion & love</p>
+                <span class="price">$12</span>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="download (33).jpeg" alt="Sunflower">
+                <h2>Sunflower</h2>
+                <p>Warmth & happiness</p>
+                <span class="price">$10</span>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="download (34).jpeg" alt="Orchid">
+                <h2>Orchid</h2>
+                <p>Exotic beauty</p>
+                <span class="price">$20</span>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="download (35).jpeg" alt="Daisy">
+                <h2>Daisy</h2>
+                <p>Innocence & purity</p>
+                <span class="price">$8</span>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="Pretty Tings 🥰.jpeg" alt="Carnation">
+                <h2>Carnation</h2>
+                <p>Fascination & love</p>
+                <span class="price">$14</span>
+                <button class="btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="Small bag, big slay_ 🎯.jpeg" alt="Chrysanthemum">
+                <h2>Chrysanthemum</h2>
+                <p>Joy & optimism</p>
+                <span class="price">$16</span>
+                <button class="btn">Add to Cart</button>
+        </div>
+    </div>
+
+    
+<div id="cart-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); z-index:999; justify-content:center; align-items:center;">
+  <div style="background:#fff; border-radius:16px; padding:32px 24px; min-width:320px; max-width:90vw; max-height:80vh; overflow:auto; position:relative;">
+    <h2 style="color:#db5275; margin-bottom:18px;">Your Cart</h2>
+    <ul id="cart-items" style="list-style:none; padding:0; margin-bottom:20px;"></ul>
+    <button onclick="closeCart()" style="background:#db5275; color:#fff; border:none; border-radius:20px; padding:8px 28px; font-size:16px; cursor:pointer;">Close</button>
+  </div>
+</div>
+
+
+<div id="order-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); z-index:1000; justify-content:center; align-items:center;">
+  <div class="order-form-modal">
+    <h2>Your order</h2>
+    <form id="order-form">
+      <label>Product:</label>
+      <input type="text" id="order-product" name="product" readonly>
+      <label>Your Name:</label>
+      <input type="text" name="name" required>
+      <label>Email:</label>
+      <input type="email" name="email" required>
+      <label>Address:</label>
+      <input type="text" name="address" required>
+      <label>Mobile Number:</label>
+      <input type="text" name="phone" required>
+      
+      <button type="submit" class="order-btn">Submit</button>
+      <button type="button" onclick="closeOrder()" class="order-cancel">Cancel</button>
+    </form>
+  </div>
+</div>
+
+    <script>
+ 
+  var buttons = document.querySelectorAll('.btn');
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function() {
+      var countSpan = document.getElementById('cart-count');
+      countSpan.textContent = parseInt(countSpan.textContent) + 1;
+    });
+  }
+
+
+  var cart = [];
+
+  
+  var buttons = document.querySelectorAll('.btn');
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function(g) {
+      var card = g.target.closest('.product-card');
+      var name = card.querySelector('h2').textContent;
+      var price = card.querySelector('.price').textContent;
+      var img = card.querySelector('img').src;
+      cart.push({name: name, price: price, img: img});
+      var countSpan = document.getElementById('cart-count');
+      countSpan.textContent = cart.length;
+    });
+  }
+
+
+  document.getElementById('buy-now-btn').onclick = function(g) {
+    g.preventDefault();
+    showCart();
+  };
+
+function showCart() {
+  var modal = document.getElementById('cart-modal');
+  var list = document.getElementById('cart-items');
+  list.innerHTML = '';
+  if(cart.length === 0) {
+    list.innerHTML = '<li style="color:#db5275;">Your cart is empty.</li>';
+  } else {
+    for(var i=0; i<cart.length; i++) {
+      var li = document.createElement('li');
+      li.style.display = 'flex';
+      li.style.alignItems = 'center';
+      li.style.justifyContent = 'space-between';
+      li.style.marginBottom = '12px';
+
+      var itemDiv = document.createElement('div');
+      itemDiv.style.cursor = 'pointer';
+      itemDiv.innerHTML = '<img src="'+cart[i].img+'" style="width:40px;height:40px;border-radius:8px;margin-right:10px;vertical-align:middle;">'
+        + '<b>' + cart[i].name + '</b> - ' + cart[i].price;
+
+      // عند الضغط على المنتج يفتح فورم الأوردر
+      (function(index){
+        itemDiv.onclick = function() {
+          openOrder(cart[index]);
+        }
+      })(i);
+
+      // زر الحذف
+      var removeBtn = document.createElement('button');
+      removeBtn.textContent = 'Remove';
+      removeBtn.style.background = '#db5275';
+      removeBtn.style.color = '#fff';
+      removeBtn.style.border = 'none';
+      removeBtn.style.borderRadius = '8px';
+      removeBtn.style.padding = '4px 14px';
+      removeBtn.style.marginLeft = '12px';
+      removeBtn.style.cursor = 'pointer';
+      removeBtn.style.fontSize = '14px';
+
+      (function(index){
+        removeBtn.onclick = function(e) {
+          e.stopPropagation(); // حتى لا يفتح فورم الأوردر
+          cart.splice(index, 1);
+          document.getElementById('cart-count').textContent = cart.length;
+          showCart();
+        }
+      })(i);
+
+      li.appendChild(itemDiv);
+      li.appendChild(removeBtn);
+      list.appendChild(li);
+    }
+  }
+  modal.style.display = 'flex';
+  modal.style.justifyContent = 'center';
+  modal.style.alignItems = 'center';
+}
+
+  function closeCart() {
+    document.getElementById('cart-modal').style.display = 'none';
+  }
+
+
+  function openOrder(product) {
+    closeCart();
+    document.getElementById('order-product').value = product.name;
+    document.getElementById('order-modal').style.display = 'flex';
+    document.getElementById('order-modal').style.justifyContent = 'center';
+    document.getElementById('order-modal').style.alignItems = 'center';
+  }
+
+  function closeOrder() {
+    document.getElementById('order-modal').style.display = 'none';
+  }
+
+  document.getElementById('order-form').onsubmit = function(e) {
+    e.preventDefault();
+    alert('Order sent! Thank you.');
+    closeOrder();
+  };
+</script>
+
+</body>
+</html>
